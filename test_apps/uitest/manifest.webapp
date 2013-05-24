@@ -14,6 +14,9 @@
     "attention":{},
     "contacts":{ "access": "readwrite" },
     "settings":{ "access": "readwrite" },
-    "desktop-notification":{}
+    "desktop-notification":{},
+    "device-storage:pictures":{ "access": "readwrite" },
+    "sms":{},
+    "wifi-manage":{}
   }
 }
