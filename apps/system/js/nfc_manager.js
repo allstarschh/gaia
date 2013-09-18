@@ -200,7 +200,7 @@
       var handle = null;
       debug('RECORD: ' + JSON.stringify(record));
 
-      switch (+record.tnf) {
+      switch (record.tnf) {
         case nfc.tnf_empty:
           handle = handleEmpty(record);
           break;
@@ -269,7 +269,7 @@
     var handled = false;
     var nfc = window.navigator.mozNfc;
 
-    var conn = nfc.connect(6);
+    var conn = nfc.connect(1);
     conn.onsuccess = function() {
       debug('DBG: Success');
 
@@ -299,7 +299,7 @@
 
   // TODO:
   function handleNdefFormattableDiscovered() {
-    return handleNdefDiscovered(command);
+    return handleNdefDiscovered();
   }
 
   function handleTechnologyDiscovered(command) {
@@ -318,7 +318,7 @@
     // Force Tech Priority:
     var pri = ['P2P', 'NDEF', 'NDEF_FORMATTABLE', 'NFC_A', 'MIFARE_ULTRALIGHT'];
     for (var ti = 0; ti < pri.length; ti++) {
-      debug('Going through NFC Technologies: ' + ti);
+      debug('Going through NFC Technologies: ' + pri[ti]);
       var i = techs.indexOf(pri[ti]);
       if (i != -1) {
         if (techs[i] == 'P2P') {
@@ -404,18 +404,22 @@
   }
 
   function handleTextRecord(record) {
-    var status = record.payload.charCodeAt(0);
+    var payload = '';
+    for (var i = 0; i < record.payload.length; i++) {
+      payload += String.fromCharCode(record.payload[i]);
+    }
+    var status = payload.charCodeAt(0);
     var languageLength = status & nfc.rtd_text_iana_length;
-    var language = record.payload.substring(1, languageLength + 1);
+    var language = payload.substring(1, languageLength + 1);
     var encoding = status & nfc.rtd_text_encoding;
     var text;
     var encodingString;
     if (encoding == nfc.rtd_text_utf8) {
       text = decodeURIComponent(
-        escape(record.payload.substring(languageLength + 1)));
+        escape(payload.substring(languageLength + 1)));
       encodingString = 'UTF-8';
     } else if (encoding == nfc.rtd_text_utf16) {
-      record.payload.substring(languageLength + 1);
+      payload.substring(languageLength + 1);
       encodingString = 'UTF-16';
     }
     var activityText = {
@@ -434,22 +438,26 @@
 
   function handleURIRecord(record) {
     debug('XXXXXXXXXXXXXXX Handle Ndef URI type XXXXXXXXXXXXXXXX');
+    var payload = '';
+    for (var i = 0; i < record.payload.length; i++) {
+      payload += String.fromCharCode(record.payload[i]);
+    }
     var activityText = null;
-    var prefix = nfc.uris[record.payload.charCodeAt(0)];
+    var prefix = nfc.uris[payload.charCodeAt(0)];
     if (!prefix) {
       return null;
     }
 
     if (prefix == 'tel:') {
       // handle special case
-      var number = record.payload.substring(1);
+      var number = payload.substring(1);
       debug('XXXXXXXXXXXXXXX Handle Ndef URI type, TEL XXXXXXXXXXXXXXXX');
       activityText = {
         name: 'dial',
         data: {
           type: 'webtelephony/number',
           number: number,
-          uri: prefix + record.payload.substring(1),
+          uri: prefix + payload.substring(1),
           records: [record]
         }
       };
@@ -459,7 +467,7 @@
         data: {
           type: 'uri',
           rtd: record.type,
-          uri: prefix + record.payload.substring(1),
+          uri: prefix + payload.substring(1),
           records: [record]
         }
       };
