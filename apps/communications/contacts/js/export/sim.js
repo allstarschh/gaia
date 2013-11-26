@@ -72,11 +72,14 @@ var ContactsSIMExport = function ContactsSIMExport() {
 
     var theContact = contacts[step];
 
+    dump('theContact.id=' + theContact.id);
     var request = icc.updateContact('adn', theContact);
     request.onsuccess = function onsuccess() {
+      dump('onsuccess');
       next(true, theContact);
     };
     request.onerror = function onerror(e) {
+      dump('onerror');
       // Don't send an error, just continue
       next(false, theContact);
     };

@@ -163,6 +163,7 @@ function SimContactsImporter() {
       item.category = ['sim'];
 
       var contact = new mozContact(item);
+      contact.id = item.id;
 
       var cbs = {
         onmatch: function(results) {
