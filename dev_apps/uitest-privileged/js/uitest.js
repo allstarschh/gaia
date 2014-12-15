@@ -65,6 +65,20 @@ var UITest = {
       this.handleNotificationMessage(msg);
     }.bind(this));
 
+    window.navigator.mozSetMessageHandler('activity', function(activity) {
+      var source = activity.source;
+      dump('XXX source.name='+source.name);
+      var data= source.data;
+      dump('XXX data.techList='+data.techList);
+      dump('XXX data.tech='+data.tech);
+      dump('XXX data.records='+data.records);
+      dump('XXX JSON data.records='+JSON.stringify(data.records));
+      dump('XXX data.records[0].tnf='+data.records[0].tnf);
+      dump('XXX data.records[0].type='+data.records[0].type);
+      dump('XXX data.records[0].id='+data.records[0].id);
+      dump('XXX data.records[0].payload='+data.records[0].payload);
+    }.bind(this));
+
     var name = this.getNameFromHash();
     if (name) {
       this.openTest(name);

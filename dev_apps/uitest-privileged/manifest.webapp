@@ -13,6 +13,11 @@
   "icons": {
     "128": "/style/icons/Uitest.png"
   },
+  "activities": {
+    "nfc-ndef-discovered": {
+      "href": "/index.html"
+    }
+  },
   "permissions": {
     "audio-capture":{},
     "video-capture":{},
@@ -23,6 +28,7 @@
     "device-storage:videos":{ "access": "readwrite" },
     "geolocation":{},
     "mobileid": {},
-    "secureelement-manage": {}
+    "secureelement-manage": {},
+    "nfc": {}
   }
 }

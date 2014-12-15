@@ -17,7 +17,7 @@
  */
 
 /* globals CustomEvent, MozActivity, Service, SettingsListener,
-   NfcHandoverManager, NfcUtils, NDEF, ScreenManager */
+   NfcHandoverManager, NfcUtils, NDEF, ScreenManager, MozNDEFRecord */
 
 'use strict';
 
@@ -404,7 +404,10 @@
       var options = this._createNDEFActivityOptions(data);
 
       if (data !== null) {
-        options.data.records = records;
+        options.data.records = [];
+        for (var i = 0; i < records.length; i++) {
+          options.data.records.push(new MozNDEFRecord(records[i]));
+        }
       }
 
       this._debug('_fireNDEFDiscovered activity options: ', options);
