@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
+    <meta charset="utf-8">
+    <title>NFC Read Tag Test</title>
+    <script defer src="js/nfc_read_tag.js"></script>
+    <link rel="stylesheet" type="text/css" href="style/nfc.css">
+  </head>
+  <body>
+    <div id="content">
+      <div>
+        <h2>NFC Tag Info</h2>
+      </div>
+      <h4 id="global-message" class="error"></h4>
+
+      <ul data-type="tag-container">
+        <li><b>Supported Technology List: </b><span data-type="tech-list"></span> </li>
+        <li><b>Tag ID: </b><span data-type="tag-id"></span> </li>
+        <li><b>Tag Type: </b><span data-type="tag-type"></span> </li>
+        <li><b>Max NDEF size: </b><span data-type="max-ndef-size"></span> </li>
+        <li><b>Read-Only: </b><span data-type="read-only"></span> </li>
+        <li><b>Formatable: </b><span data-type="formatable"></span> </li>
+        <li><b>Can be made Read-Only: </b><span data-type="can-be-made-read-only"></span> </li>
+        <li><b>is Lost: </b><span data-type="is-lost"></span> </li>
+      </ul>
+
+    </div>
+  </body>
+</html>

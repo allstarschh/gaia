@@ -1,0 +1,16 @@
+{
+  "name": "NFC Privileged API tests",
+  "launch_path": "/index.html",
+  "type": "privileged",
+  "developer": {
+    "name": "The TW QA Team",
+    "url": "https://github.com/Mozilla-TWQA",
+    "e-mail": "tw-qa@mozilla.com"
+  },
+  "icons": {
+    "128": "/style/icons/nfc.png"
+  },
+  "permissions": {
+    "nfc": {}
+  }
+}
